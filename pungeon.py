@@ -73,29 +73,17 @@ def draw_map(player):
 	print (' _ _ _ _ _ _')
 	tile = '|{}'
 
-# okay so the index of a cell in CELLS, enumerated, starting from zero
 	for idx, cell in enumerate(CELLS):
-		# if the index of a cell is one of these
 		if idx in [0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34]:
-			# and the player is in that cell
 			if cell == player:
-				# print  an X
 				print(tile.format('X'), end = '')
-			# if the player's not in one of these cells, format the tile like |_
 			else:
 				print(tile.format('_'), end = '')
-		# for all the other cells, so indexes 1, 2, 10, 11, 16, 17, 22, 23, 28, 29, etc
 		else:
-			# if the player is in that cell, format the square like |X|
-			# which means the above indexes should only be for the corners? and these are the middle blocks?
-			# in the original, kenneth used the indexes for 0, 1, 3, 4, 6, 7 which was the leftmost column and the middle column
-			# so this larger map should use at the LEAST
 			if cell == player:
 				print(tile.format('X|'))
-			# if not, the cell should look like |_|
 			else:
 				print(tile.format('_|'))
-# EDIT: THE OUTER ELSE LOOP FORMATS THE RIGHTMOST COLUMN, SO U GOTTA CALL THE INDEXES OF *EVERY OTHER FUCKING CELL*
 
 monster, door, player = get_locations()
 print("You seem to have found yourself in a dungeon. It's probably full of monsters, and gods know what else. You should leave.")
@@ -118,6 +106,9 @@ while True:
 
 	if move in moves:
 		player = move_player(player, move)
+	elif move not in moves:
+		print("You can move {}".format(moves))
+		continue
 	else:
 		print("** What do you think you are, a transient protein? That's a WALL! **")
 		continue
